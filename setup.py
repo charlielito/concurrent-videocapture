@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as readme:
     setup(
         name="concurrent_videocapture",
-        version="0.0.1",
+        version="0.0.2",
         author="Carlos Alvarez",
         author_email="candres.alv@gmail.com",
         description="Read opencv cameras concurrently",
