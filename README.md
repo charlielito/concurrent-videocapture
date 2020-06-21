@@ -17,10 +17,8 @@ pip install git+https://github.com/charlielito/concurrent-videocapture
 
 ## Usage
 
-The program that shares the array can be
 
 ```python
-
 import cv2
 import time
 
