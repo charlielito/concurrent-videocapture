@@ -42,7 +42,7 @@ cap.release()
 ```
 
 ### Additional parameters
-Sometimes it is useful to perform some preprocessing to the image in the thread where the camera is read. For that we can use in the constructor the parameter `transform_fn`, which is a function that is applied to each frame. The flag `return_rgb` is for converting each frame to RGB since opencv by default returns the frames in GBR format. The next example will flip horizontally the image and return it as RGB:
+Sometimes it is useful to perform some preprocessing to the image in the thread where the camera is read. For that we can use in the constructor the parameter `transform_fn`, which is a function that is applied to each frame. The flag `return_rgb` is for converting each frame to RGB since opencv by default returns the frames in BGR format. The next example will flip horizontally the image and return it as RGB:
 
 ```python
 import cv2
