@@ -5,23 +5,31 @@ import cv2
 
 
 class ConcurrentVideoCapture(Thread):
+    """Runs concurrently a cv2.VideoCapture for reading images in a separate thread.
+    It follows the same api as cv2, so minimal change of code is required.
+
+    Example:
+        ```python
+        cap = ConcurrentVideoCapture(0)
+        while True:
+            grabbed, frame = cap.read()
+            # Process frame...
+        cap.release()
+        ```
     """
 
-    Args:
-        Thread ([type]): [description]
-    """
-
-    def __init__(self, src=0, transform_fn=None, return_rgb=False, daemon=True):
-        """[summary]
+    def __init__(self, src, transform_fn=None, return_rgb=False, daemon=True):
+        """Initializes the VideoCapture object with same API as cv2.VideoCapture
 
         Args:
-            src (int or str, optional): [description]. Defaults to 0.
-            transform_fn ([type], optional): [description]. Defaults to None.
-            return_rgb (bool, optional): [description]. Defaults to False.
-            daemon (bool, optional): [description]. Defaults to True.
-
-        Returns:
-            [type]: [description]
+            src (int or str): Camera id to open for image reading. It can be
+            also a string with the full path to the device i.e "/dev/video0".
+            transform_fn (python function, optional): Python function that is
+            applied to each frame in the thread. Defaults to None.
+            return_rgb (bool, optional): Whether or not to return the frame read
+            as RGB, since by default cv2 returns it as BGR. Defaults to False.
+            daemon (bool, optional): Whether or not the thread is daemonic or not,
+            this means that when parent process dies, this also ends. Defaults to True.
         """
         super(ConcurrentVideoCapture, self).__init__()
         self.src = src
@@ -69,7 +77,7 @@ class ConcurrentVideoCapture(Thread):
 
     def _start_capture(self):
         if self.run_event.is_set():
-            print("[!] Threaded video capturing has already been started.")
+            print("[Warning] Video capturing has already been started.")
             return False
 
         self.run_event.set()
